@@ -21,17 +21,17 @@
 # - List of samples remained after filtering (/Data/array_qc/imputed_array_snps_qc_pass.id)
 
 #set output directory (also location of merged files)
-data_file_dir="/Bulk-DRL/Genotype Calls, merged/"
+data_file_dir="/liftover/"
 
-run_plink_qc="plink2 --bfile ukb_c1-22_merged\
- --keep ischemia_df.phe --autosome\
+run_plink_qc="plink2 --bfile ukb_c1-22_GRCh38_full_analysis_set_plus_decoy_hla_merged\
+ --keep random_phenotypes_df.phe --autosome\
  --maf 0.01 --mac 20 --geno 0.1 --hwe 1e-15\
  --mind 0.1 --write-snplist --write-samples\
  --no-id-header --out  imputed_array_snps_qc_pass"
 
-dx run swiss-army-knife -iin="${data_file_dir}/ukb_c1-22_merged.bed" \
-   -iin="${data_file_dir}/ukb_c1-22_merged.bim" \
-   -iin="${data_file_dir}/ukb_c1-22_merged.fam"\
-   -iin="/Data/ischemia_df.phe" \
+dx run swiss-army-knife -iin="${data_file_dir}/ukb_c1-22_GRCh38_full_analysis_set_plus_decoy_hla_merged.bed" \
+   -iin="${data_file_dir}/ukb_c1-22_GRCh38_full_analysis_set_plus_decoy_hla_merged.bim" \
+   -iin="${data_file_dir}/ukb_c1-22_GRCh38_full_analysis_set_plus_decoy_hla_merged.fam"\
+   -iin="/Data/random_phenotypes_df.phe" \
    -icmd="${run_plink_qc}" --tag="Array QC" --instance-type "mem1_ssd1_v2_x36"\
    --destination="/Data/array_qc/" --brief --yes
